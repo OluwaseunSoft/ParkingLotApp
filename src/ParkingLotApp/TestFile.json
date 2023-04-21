@@ -1,0 +1,7 @@
+{
+    "ParkingLot" : "Airport",
+    "Vehicle" : "Motorcycles_Scooters",
+    "ParkTime" : "2016-12-01T00:00:00", 
+    "UnparkTime": "2016-12-31T23:59:59",
+    "Action": "Unpark"
+}
