@@ -1,51 +1,28 @@
-﻿public class Program
+﻿using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
+using ParkingLotApp.Interfaces;
+using ParkingLotApp.Models;
+using ParkingLotApp.Services;
+
+public class Program
 {
-    private readonly IClientDataService service;
+    public static void Main(string[] args)
+    {
+        var serviceProvider = new ServiceCollection()
+            .AddSingleton<IVehicleParking, VehicleParking>()
+            .AddSingleton<IParkingLot, ParkingLot>()
+            .AddSingleton<IParkingLotFees, ParkingLotFees>()
+            .AddSingleton<IParkingReceipt, ParkingLotApp.Services.ParkingReceipt>()
+            .BuildServiceProvider();
 
-    public Program(IClientDataService service) {
-        this.service = service;
+
+        var vehicleParking = serviceProvider.GetRequiredService<IVehicleParking>();
+        //var parkingLot = serviceProvider.GetRequiredService<IParkingLot>();
+        //string jsonString = JsonSerializer.Serialize<ParkingTicket>(parkingLot.AirportParking("Cars_SUV"));
+        var parkingReceipt = serviceProvider.GetRequiredService<IParkingReceipt>();
+        string jsonString = JsonSerializer.Serialize<ParkingLotApp.Models.ParkingReceipt>(parkingReceipt.AirportParking("2016-12-01T00:00:00", "2016-12-31T23:59:59", "Cars_SUV"));
+
+        Console.WriteLine(jsonString);
     }
 
-    public void SomeMethod() {
-        //...
-    }
-
-    public static void Main(string[] args) {
-        IServiceProvider serviceProvider = RegisterServices();
-
-        Program program = serviceProvider.GetService<Program>();
-
-        program.SomeMethod();
-
-        DisposeServices(serviceProvider);
-    }
-    
-
-    private static IServiceProvider RegisterServices() {
-        var services = new ServiceCollection();
-
-        //repositories
-        services.AddScoped<IAccountDataRepository, AccountDataRepository>();
-        services.AddScoped<IClientDataRepository, ClientDataRepository>();
-        services.AddScoped<IAddressDataRepository, AddressDataRepository>();
-        services.AddScoped<IClientAccountDataRepository, ClientAccountDataRepository>();
-        //services
-        services.AddScoped<IAccountDataService, AccountDataService>();
-        services.AddScoped<IClientDataService, ClientDataService>();
-        services.AddScoped<IAddressDataService, AddressDataService>();
-        services.AddScoped<IClientAccountDataService, ClientAccountDataService>();
-        services.AddLogging(); //<-- LOGGING
-        //main
-        services.AddScoped<Program>(); //<-- NOTE THIS
-
-        return services.BuildServiceProvider();
-    }
-    private static void DisposeServices(IServiceProvider serviceProvider) {
-        if (serviceProvider == null) {
-            return;
-        }
-        if (serviceProvider is IDisposable sp) {
-            sp.Dispose();
-        }
-    }
 }

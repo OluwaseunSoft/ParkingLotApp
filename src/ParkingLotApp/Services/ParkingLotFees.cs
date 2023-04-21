@@ -4,9 +4,9 @@ namespace ParkingLotApp.Services
 {
     public class ParkingLotFees : IParkingLotFees
     {
-        public int AirportParkingLot(int hour, string vehicle)
+        public double AirportParkingLot(double hour, string vehicle)
         {
-            int fee = 0;
+            double fee = 0;
             try
             {
                 switch (vehicle)
@@ -22,7 +22,7 @@ namespace ParkingLotApp.Services
                         }
                         else if (hour > 24)
                         {
-                            float day = hour / 24;
+                            double day = hour / 24;
                             fee = (int)day * 80;
                         }
                         else
@@ -41,7 +41,7 @@ namespace ParkingLotApp.Services
                         }
                         else if (hour > 24)
                         {
-                            float day = hour / 24;
+                            double day = hour / 24;
                             fee = (int)day * 100;
                         }
                         break;
@@ -57,9 +57,9 @@ namespace ParkingLotApp.Services
             return fee;
         }
 
-        public int MallParkingLot(int hour, string vehicle)
+        public double MallParkingLot(double hour, string vehicle)
         {
-            int fee = 0;
+            double fee = 0;
             try
             {
                 switch (vehicle)
@@ -85,9 +85,9 @@ namespace ParkingLotApp.Services
             return fee;
         }
 
-        public int StadiumParkingLot(int hour, string vehicle)
+        public double StadiumParkingLot(double hour, string vehicle)
         {
-            int fee = 0;
+            double fee = 0;
             try
             {
                 switch (vehicle)

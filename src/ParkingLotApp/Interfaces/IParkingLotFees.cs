@@ -2,9 +2,9 @@ namespace ParkingLotApp.Interfaces
 {
     public interface IParkingLotFees
     {
-        int StadiumParkingLot(int hour, string vehicle);
-        int MallParkingLot(int hour, string vehicle);
-        int AirportParkingLot(int hour, string vehicle);
+        double StadiumParkingLot(double hour, string vehicle);
+        double MallParkingLot(double hour, string vehicle);
+        double AirportParkingLot(double hour, string vehicle);
 
     }
 }

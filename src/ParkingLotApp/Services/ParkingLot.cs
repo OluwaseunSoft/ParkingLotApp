@@ -5,9 +5,9 @@ namespace ParkingLotApp.Services
 {
     public class ParkingLot : IParkingLot
     {
-        private readonly VehicleParking _vehicleParking;
+        private readonly IVehicleParking _vehicleParking;
 
-        public ParkingLot(VehicleParking vehicleParking)
+        public ParkingLot(IVehicleParking vehicleParking)
         {
             _vehicleParking = vehicleParking;
         }
@@ -16,13 +16,18 @@ namespace ParkingLotApp.Services
             ParkingTicket parkingTicket = new ParkingTicket();
             try
             {
+                List<int> spot = new List<int>();
                 int ticketNumber = 1;
-                if (vehicles == "Buses/Trucks")
+                if (vehicles == "Buses_Trucks")
                     return parkingTicket;
-                var spot = _vehicleParking.Cars_SUV(500);
+                if(vehicles == "Cars_SUV")
+                    spot = _vehicleParking.Cars_SUV(500);
+                if(vehicles == "Motorcycles_Scooters")
+                    spot = _vehicleParking.Motorcycles_Scooters(200);
+                
                 var ticket = new ParkingTicket
                 {
-                    Id = ticketNumber,
+                    TicketNumber = ticketNumber,
                     EntryDateTime = DateTime.Now,
                     SpotNumber = spot.FirstOrDefault()
                 };
@@ -39,12 +44,65 @@ namespace ParkingLotApp.Services
 
         public ParkingTicket MallParking(string vehicles)
         {
-            throw new NotImplementedException();
+            ParkingTicket parkingTicket = new ParkingTicket();
+            try
+            {
+                List<int> spot = new List<int>();
+                int ticketNumber = 1;
+                if (vehicles == "Buses_Trucks")
+                    spot = _vehicleParking.Buses_Trucks(10);
+                if(vehicles == "Cars_SUV")
+                    spot = _vehicleParking.Cars_SUV(80);
+                if(vehicles == "Motorcycles_Scooters")
+                    spot = _vehicleParking.Motorcycles_Scooters(100);
+                
+                var ticket = new ParkingTicket
+                {
+                    TicketNumber = ticketNumber,
+                    EntryDateTime = DateTime.Now,
+                    SpotNumber = spot.FirstOrDefault()
+                };
+                return ticket;
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return parkingTicket;
         }
 
         public ParkingTicket StadiumParking(string vehicles)
         {
-            throw new NotImplementedException();
+           ParkingTicket parkingTicket = new ParkingTicket();
+            try
+            {
+                List<int> spot = new List<int>();
+                int ticketNumber = 1;
+                if (vehicles == "Buses_Trucks")
+                    return parkingTicket;
+                if(vehicles == "Cars_SUV")
+                    spot = _vehicleParking.Cars_SUV(1500);
+                if(vehicles == "Motorcycles_Scooters")
+                    spot = _vehicleParking.Motorcycles_Scooters(1000);
+                
+                var ticket = new ParkingTicket
+                {
+                    TicketNumber = ticketNumber,
+                    EntryDateTime = DateTime.Now,
+                    SpotNumber = spot.FirstOrDefault()
+                };
+                ticketNumber++;
+                return ticket;
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return parkingTicket;
         }
     }
 }

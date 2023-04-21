@@ -2,10 +2,10 @@ namespace ParkingLotApp.Models
 {
     public class ParkingReceipt
     {
-        public int Id { get; set; }
+        public int ReceiptNumber { get; set; }
         public DateTime EntryDateTime { get; set; }
         public DateTime ExitDateTime { get; set; }
-        public int Fees { get; set; }
+        public double Fees { get; set; }
         
     }
 }
