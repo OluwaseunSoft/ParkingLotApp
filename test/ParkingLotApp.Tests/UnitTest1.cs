@@ -8,15 +8,15 @@ public class UnitTest1
     public void Test1()
     {
         //Arrange
-        var testVehicles = new Vehicles
+        var testData = new DataFromFile
         {
-           Motorcycles = "89"
+           ParkingLot = "Airport"
         };
 
         //Act
-        testVehicles.Motorcycles = "Test Pipeline";
+        testData.ParkingLot = "Airport";
 
         //Assert
-        Assert.Equal("Test Pipeline", testVehicles.Motorcycles);
+        Assert.Equal("Stadium", testData.ParkingLot);
     }
 }
